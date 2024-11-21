@@ -17,5 +17,5 @@ if [[ $major -lt 3 || $minor -lt 9 ]]; then
 fi
 
 cd $folder
-pip install -r requirements.txt --break-system-packages  # if you are using python version 3.10 then --break-system-packages not required else you have to put it 
+pip install -r requirements.txt --break-system-packages  # if you are using python version 3.10 then --break-system-packages not required else you have to put it hello
 python main.py

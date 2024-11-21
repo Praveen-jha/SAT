@@ -1,0 +1,26 @@
+resources:
+  jobs:
+    sat_initializer:
+      name: "SAT Initializer Notebook (one-time)"
+
+      tasks:
+        - task_key: "sat_initializer"
+          job_cluster_key: job_cluster
+          libraries:
+            - pypi:
+                package: dbl-sat-sdk
+          notebook_task:
+            notebook_path: "../notebooks/security_analysis_initializer.py"
+
+      job_clusters:
+        - job_cluster_key: job_cluster
+          new_cluster:
+            data_security_mode: SINGLE_USER
+            num_workers: 1  # put number of workers nodes you required
+            spark_version: {{.latest_lts}}  # if you required any specific version of spark then put it here e.g. spark_version: "3.0.1"
+            runtime_engine: "PHOTON"
+            node_type_id:  "Standard_D4lds_v5"   # specify the node type you want if any specific by default it have {{.node_type}} hello
+            {{- if eq .cloud "gcp" }}
+            gcp_attributes:
+              google_service_account: {{.google_service_account}}
+            {{- end }}
